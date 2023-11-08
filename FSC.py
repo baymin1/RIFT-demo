@@ -1,8 +1,6 @@
 """
 kkkasfj;f
 
-afjsdfj
-
 """
 """
 这个函数实现的是RANSAC（Random Sample Consensus）方法的一个变体，用于估计两组点之间的变换（可能是相似性、仿射性或透视变换）。
