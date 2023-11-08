@@ -6,9 +6,7 @@ from FSC import FSC
 from phasepack import phasecong
 from RIFT_descriptor_no_rotation_invariance import RIFT_descriptor_no_rotation_invariance
 from rotated_source_calculate import rotated_source_calculate
-import utils as u
-import utils_tc as utc
-import torch as tc
+
 
 # # 遍历文件夹进行配准
 # HE_images_directory = r'D:\datasets\HE'
