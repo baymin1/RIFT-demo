@@ -12,10 +12,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 step = 10
 device = "cuda:0"
 
-
 def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, best_match_point1,best_match_point2):
 
-    # 计算图像中心点，每次旋转60度
+    # 计算图像中心点，每次旋转angle度
     for angle in range(-180, 180, step):
         print("=================================")
         print(f"旋转角度为{angle}")
@@ -49,7 +48,7 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
         # RIFT描述子对特征点进行描述
         kps1, des1 = RIFT_descriptor_no_rotation_invariance(img1, m1_point, eo1, 96, 4, 6)
         kps2, des2 = RIFT_descriptor_no_rotation_invariance(rotated_img2, m2_point, eo2, 96, 4, 6)
-        # 生成匹配，获取匹配点坐标序列，python中没有matlab的matchFeatures函数的对应函数，因此用了opencv
+        # 生成匹配，获取匹配点坐标序列
         bf = cv2.FlannBasedMatcher()
         matches = bf.match(des1, des2)
         match_point1 = np.zeros([len(matches), 2], int)
@@ -74,6 +73,7 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
 
         current_cost = np.mean((descriptors_1 - descriptors_2) ** 2)
         print(f"当前损失为{current_cost}")
+        
         # 判断
         if current_cost < best_cost:
             best_cost = current_cost
