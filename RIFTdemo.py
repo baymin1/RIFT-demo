@@ -34,7 +34,7 @@ from rotated_source_calculate import rotated_source_calculate
 #     img1 = cv2.resize(bgr_image1, (target_width, target_height))
 #     img2 = cv2.resize(bgr_image2, (target_width, target_height))
 
-"testq"
+"testw"
 # # 单独两张图片测试
 s_img1 = cv2.imread(r"D:\samples\HE.png")
 s_img2 = cv2.imread(r"D:\samples\IHC_PD-L1.png")
