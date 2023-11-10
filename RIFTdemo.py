@@ -80,14 +80,14 @@ m2_point = np.array([kp.pt for kp in top_kp2])
 kps1, des1 = RIFT_descriptor_no_rotation_invariance(img1, m1_point, eo1, 96, 4, 6)
 kps2, des2 = RIFT_descriptor_no_rotation_invariance(img2, m2_point, eo2, 96, 4, 6)
 
-# 生成匹配，获取匹配点坐标序列，python中没有matlab的matchFeatures函数的对应函数，因此用了opencv
+# 生成匹配，获取匹配点坐标序列
 bf = cv2.FlannBasedMatcher()
-
+# matches里面有两幅图的特征点索引和相似度
 matches = bf.match(des1, des2)
 match_point1 = np.zeros([len(matches), 2], int)
 match_point2 = np.zeros([len(matches), 2], int)
 
-# 根据关键点的索引找到其在kps1中的坐标，matches里面有两幅图的特征点索引和相似度。
+# 根据关键点的索引找到其在kps1中的坐标
 for m in range(len(matches)):
     match_point1[m] = kps1[matches[m].queryIdx]
     match_point2[m] = kps2[matches[m].trainIdx]
@@ -103,6 +103,7 @@ descriptors_1 = des1[desc_indices_1]
 desc_indices_2 = [np.where((kps2 == point).all(axis=1))[0][0] for point in match_point2]
 descriptors_2 = des2[desc_indices_2]
 
+# 得到两幅图匹配点的描述符并计算均方差误差
 best_costs = np.mean((descriptors_1 - descriptors_2)**2)
 
 # 计算初始值作为最优
