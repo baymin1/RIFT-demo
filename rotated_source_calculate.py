@@ -15,7 +15,7 @@ device = "cuda:0"
 def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, best_match_point1,best_match_point2):
 
     # 计算图像中心点，每次旋转angle度
-    for angle in range(-180, 180, step):
+    for angle in range(step, 360, step):
         print("=================================")
         print(f"旋转角度为{angle}")
         height, width = img1.shape[:2]
@@ -25,6 +25,9 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
         rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
         rotated_img2 = cv2.warpAffine(img2, rotation_matrix, (width, height))
 
+        """
+        在这调用方法
+        """
         # 对旋转源图像和参考图像进行描述，并求变换矩阵
         m1, __, __, __, __, eo1, __ = phasecong(img=img1, nscale=4, norient=6, minWaveLength=3, mult=1.6, sigmaOnf=0.75,
                                                 g=3, k=1)
@@ -61,9 +64,6 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
         match_point2, IA = np.unique(match_point2, return_index=True, axis=0)
         match_point1 = match_point1[IA]
 
-        # 记录当前变换
-        current_transform = FSC(match_point1, match_point2, 'affine', 2)
-
         # 计算当前损失
         desc_indices_1 = [np.where((kps1 == point).all(axis=1))[0][0] for point in match_point1]
         descriptors_1 = des1[desc_indices_1]
@@ -73,7 +73,15 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
 
         current_cost = np.mean((descriptors_1 - descriptors_2) ** 2)
         print(f"当前损失为{current_cost}")
-        
+
+        # 记录当前变换
+        current_transform = FSC(match_point1, match_point2, 'affine', 2)
+
+        """
+        方法结束
+        用current接收返回值
+        """
+
         # 判断
         if current_cost < best_cost:
             best_cost = current_cost

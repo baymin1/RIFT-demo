@@ -6,7 +6,6 @@ from FSC import FSC
 from phasepack import phasecong
 from RIFT_descriptor_no_rotation_invariance import RIFT_descriptor_no_rotation_invariance
 from rotated_source_calculate import rotated_source_calculate
-import math
 
 # # 遍历文件夹进行配准
 # HE_images_directory = r'D:\datasets\HE'
@@ -34,7 +33,11 @@ import math
 #     img1 = cv2.resize(bgr_image1, (target_width, target_height))
 #     img2 = cv2.resize(bgr_image2, (target_width, target_height))
 
+"""
+把方法抽取成一个函数，传递img1和img2
+返回值是best_costs, best_transform, best_img,best_match_point1, best_match_point2
 
+"""
 # # 单独两张图片测试
 s_img1 = cv2.imread(r"D:\samples\HE.png")
 s_img2 = cv2.imread(r"D:\samples\IHC_PD-L1.png")
@@ -42,6 +45,10 @@ target_width = 1000
 target_height = 1000
 img1 = cv2.resize(s_img1, (target_width, target_height))
 img2 = cv2.resize(s_img2, (target_width, target_height))
+
+"""
+调用方法处
+"""
 
 # 计算图像相位一致性：m1：相位一致协方差的最大矩，eo1：一个包含复值卷积结果的列表
 m1, __, __, __, __, eo1, __ = phasecong(img=img1, nscale=4, norient=6, minWaveLength=3, mult=1.6,
@@ -111,6 +118,10 @@ best_transform = FSC(match_point1, match_point2, 'affine', 2)
 best_img = img2
 best_match_point1 = match_point1
 best_match_point2 = match_point2
+
+"""
+得到初始值作为best
+"""
 
 # 对变换矩阵进行优化
 match_point1, match_point2, H, rotated_img2 = rotated_source_calculate(img1, img2, best_costs, best_transform, best_img,
