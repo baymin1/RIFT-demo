@@ -7,7 +7,6 @@ from phasepack import phasecong
 from RIFT_descriptor_no_rotation_invariance import RIFT_descriptor_no_rotation_invariance
 from rotated_source_calculate import rotated_source_calculate
 
-
 # # 遍历文件夹进行配准
 # HE_images_directory = r'D:\datasets\HE'
 # IHC_images_directory = r'D:\datasets\IHC'
@@ -61,8 +60,8 @@ kp1 = sorted(kp1, key=lambda kp: kp.response, reverse=True)
 kp2 = sorted(kp2, key=lambda kp: kp.response, reverse=True)
 
 # 选择响应值最大的关键点
-top_kp1 = kp1[:min(500, len(kp1))]
-top_kp2 = kp2[:min(500, len(kp2))]
+top_kp1 = kp1[:min(5000, len(kp1))]
+top_kp2 = kp2[:min(5000, len(kp2))]
 
 # # 绘制关键点
 # img1_keypoints = cv2.drawKeypoints(img1, top_kp1, None, color=(0, 255, 0))
@@ -94,19 +93,18 @@ for m in range(len(matches)):
 match_point2, IA = np.unique(match_point2, return_index=True, axis=0)
 match_point1 = match_point1[IA]
 
+# 计算距离的平方，即均方误差（MSE）作为最优误差
+distances_squared = [match.distance ** 2 for match in matches]
+best_costs = np.mean(distances_squared)
 # 计算初始值作为最优
-costs = np.mean((des2 - des1) ** 2, axis=1)
-lowest_costs = np.sort(costs)[0:500]  # 挑500个最小的cost出来，做平均
-
-best_costs = np.mean(lowest_costs)
 best_transform = FSC(match_point1, match_point2, 'affine', 2)
 best_img = img2
 best_match_point1 = match_point1
 best_match_point2 = match_point2
 
 # 对变换矩阵进行优化
-match_point1, match_point2, H, rotated_img2 = rotated_source_calculate(img1, img2, best_costs, best_transform,best_img, best_match_point1, best_match_point2)
-
+match_point1, match_point2, H, rotated_img2 = rotated_source_calculate(img1, img2, best_costs, best_transform, best_img,
+                                                                       best_match_point1, best_match_point2)
 
 # 计算误差
 Y_ = np.ones([3, len(match_point1)])
@@ -135,5 +133,3 @@ cv2.destroyAllWindows()
 # # 可视化图像进行存储
 # store_path = f"D:\\img{i}.jpg"
 # cv2.imwrite(store_path, img3)
-
-

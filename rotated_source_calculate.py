@@ -9,13 +9,15 @@ import cv2
 sys.path.append(os.path.join(os.path.dirname(__file__), "."))
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-step = 20
+step = 10
 device = "cuda:0"
 
 
 def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, best_match_point1,best_match_point2):
     # 计算图像中心点，每次旋转60度
     for angle in range(-180, 180, step):
+        print("=================================")
+        print(f"旋转角度为{angle}")
         height, width = img1.shape[:2]
         center = (width // 2, height // 2)
 
@@ -62,15 +64,12 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
         match_point2, IA = np.unique(match_point2, return_index=True, axis=0)
         match_point1 = match_point1[IA]
 
-
         # 记录当前变换
         current_transform = FSC(match_point1, match_point2, 'affine', 2)
-
-        # 求损失，选最佳损失
-        costs = np.mean((des2 - des1) ** 2, axis=1)
-        lowest_costs = np.sort(costs)[0:500]  # 挑500个最小的cost出来，做平均
-        current_cost = np.mean(lowest_costs)
-
+        # 求损失
+        distances_squared = [match.distance ** 2 for match in matches]
+        current_cost = np.mean(distances_squared)
+        # 判断
         if current_cost < best_cost:
             best_cost = current_cost
             best_transform = current_transform
