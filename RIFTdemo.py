@@ -82,27 +82,29 @@ kps2, des2 = RIFT_descriptor_no_rotation_invariance(img2, m2_point, eo2, 96, 4, 
 
 # 生成匹配，获取匹配点坐标序列，python中没有matlab的matchFeatures函数的对应函数，因此用了opencv
 bf = cv2.FlannBasedMatcher()
+
 matches = bf.match(des1, des2)
 match_point1 = np.zeros([len(matches), 2], int)
 match_point2 = np.zeros([len(matches), 2], int)
 
-# 获取匹配点对索引
+# 根据关键点的索引找到其在kps1中的坐标，matches里面有两幅图的特征点索引和相似度。
 for m in range(len(matches)):
     match_point1[m] = kps1[matches[m].queryIdx]
     match_point2[m] = kps2[matches[m].trainIdx]
 
-# 去重
+# 去重，得到去重后的坐标数组
 match_point2, IA = np.unique(match_point2, return_index=True, axis=0)
 match_point1 = match_point1[IA]
 
-# 得到匹配点的描述再求均方差误差
-# for m in range(len(match_point1)):
-#     des1_m[m] = des1[match_point1[m].queryIdx]
-#     des2_m[m] = des2[match_point2[m].trainIdx]
+# 从 match_point1 中提取描述符索引
+desc_indices_1 = [np.where((kps1 == point).all(axis=1))[0][0] for point in match_point1]
+descriptors_1 = des1[desc_indices_1]
 
-# 计算距离的平方，即均方误差（MSE）作为最优误差
-distances_squared = [math.sqrt(match.distance ** 2) for match in matches]
-best_costs = np.mean(distances_squared)
+desc_indices_2 = [np.where((kps2 == point).all(axis=1))[0][0] for point in match_point2]
+descriptors_2 = des2[desc_indices_2]
+
+best_costs = np.mean((descriptors_1 - descriptors_2)**2)
+
 # 计算初始值作为最优
 best_transform = FSC(match_point1, match_point2, 'affine', 2)
 best_img = img2

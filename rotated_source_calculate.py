@@ -64,9 +64,15 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
 
         # 记录当前变换
         current_transform = FSC(match_point1, match_point2, 'affine', 2)
-        # 求损失
-        distances_squared = [match.distance ** 2 for match in matches]
-        current_cost = np.mean(distances_squared)
+
+        # 计算当前损失
+        desc_indices_1 = [np.where((kps1 == point).all(axis=1))[0][0] for point in match_point1]
+        descriptors_1 = des1[desc_indices_1]
+
+        desc_indices_2 = [np.where((kps2 == point).all(axis=1))[0][0] for point in match_point2]
+        descriptors_2 = des2[desc_indices_2]
+
+        current_cost = np.mean((descriptors_1 - descriptors_2) ** 2)
         print(f"当前损失为{current_cost}")
         # 判断
         if current_cost < best_cost:
