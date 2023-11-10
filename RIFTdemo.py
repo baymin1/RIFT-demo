@@ -61,8 +61,8 @@ kp1 = sorted(kp1, key=lambda kp: kp.response, reverse=True)
 kp2 = sorted(kp2, key=lambda kp: kp.response, reverse=True)
 
 # 选择响应值最大的关键点
-top_kp1 = kp1[:min(500, len(kp1))]
-top_kp2 = kp2[:min(500, len(kp2))]
+top_kp1 = kp1[:min(5000, len(kp1))]
+top_kp2 = kp2[:min(5000, len(kp2))]
 
 # # 绘制关键点
 # img1_keypoints = cv2.drawKeypoints(img1, top_kp1, None, color=(0, 255, 0))
