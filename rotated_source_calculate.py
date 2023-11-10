@@ -14,8 +14,7 @@ device = "cuda:0"
 
 
 def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, best_match_point1,best_match_point2):
-    print("=================================")
-    print(f"旋转角度为{angle}")
+
     # 计算图像中心点，每次旋转60度
     for angle in range(-180, 180, step):
         print("=================================")
@@ -26,9 +25,6 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
         # 旋转源图像
         rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
         rotated_img2 = cv2.warpAffine(img2, rotation_matrix, (width, height))
-        cv2.imshow('rotated_img2', rotated_img2)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
 
         # 对旋转源图像和参考图像进行描述，并求变换矩阵
         m1, __, __, __, __, eo1, __ = phasecong(img=img1, nscale=4, norient=6, minWaveLength=3, mult=1.6, sigmaOnf=0.75,
@@ -71,6 +67,7 @@ def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, be
         # 求损失
         distances_squared = [match.distance ** 2 for match in matches]
         current_cost = np.mean(distances_squared)
+        print(f"当前损失为{current_cost}")
         # 判断
         if current_cost < best_cost:
             best_cost = current_cost

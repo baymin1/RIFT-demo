@@ -1,11 +1,12 @@
 import os
 import cv2
 import numpy as np
-import openslide
+# import openslide
 from FSC import FSC
 from phasepack import phasecong
 from RIFT_descriptor_no_rotation_invariance import RIFT_descriptor_no_rotation_invariance
 from rotated_source_calculate import rotated_source_calculate
+import math
 
 # # 遍历文件夹进行配准
 # HE_images_directory = r'D:\datasets\HE'
@@ -94,8 +95,13 @@ for m in range(len(matches)):
 match_point2, IA = np.unique(match_point2, return_index=True, axis=0)
 match_point1 = match_point1[IA]
 
+# 得到匹配点的描述再求均方差误差
+# for m in range(len(match_point1)):
+#     des1_m[m] = des1[match_point1[m].queryIdx]
+#     des2_m[m] = des2[match_point2[m].trainIdx]
+
 # 计算距离的平方，即均方误差（MSE）作为最优误差
-distances_squared = [match.distance ** 2 for match in matches]
+distances_squared = [math.sqrt(match.distance ** 2) for match in matches]
 best_costs = np.mean(distances_squared)
 # 计算初始值作为最优
 best_transform = FSC(match_point1, match_point2, 'affine', 2)
