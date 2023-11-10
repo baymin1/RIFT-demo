@@ -127,6 +127,11 @@ best_match_point2 = match_point2
 match_point1, match_point2, H, rotated_img2 = rotated_source_calculate(img1, img2, best_costs, best_transform, best_img,
                                                                        best_match_point1, best_match_point2)
 
+
+
+"""
+改为mse小于30，将索引提出，并可视化
+"""
 # 计算误差
 Y_ = np.ones([3, len(match_point1)])
 Y_[:2] = match_point1.T
@@ -137,6 +142,11 @@ Y_[1] = Y_[1] / Y_[2]
 
 E = np.sqrt(sum(np.power((Y_[0:2] - match_point2.T), 2)))
 inliersIndex = np.squeeze(np.argwhere(E < 3))  # 3
+
+
+
+
+
 
 # 误差足够小的点对连线可视化
 clean_point1 = match_point1[inliersIndex]
