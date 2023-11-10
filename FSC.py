@@ -1,4 +1,3 @@
-
 """
 这个函数实现的是RANSAC（Random Sample Consensus）方法的一个变体，用于估计两组点之间的变换（可能是相似性、仿射性或透视变换）。
 RANSAC是一种鲁棒方法，用于从包含大量离群值的数据中估计模型参数。
@@ -39,6 +38,8 @@ def FSC(cor1, cor2, change_form, error_t):
         max_iteration = M * (M - 1) * (M - 2) / (2 * 3)
 
     if (max_iteration > 10000):
+
+
         iterations = 10000
     else:
         iterations = max_iteration

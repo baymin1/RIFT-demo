@@ -14,6 +14,8 @@ device = "cuda:0"
 
 
 def rotated_source_calculate(img1, img2, best_cost, best_transform, best_img, best_match_point1,best_match_point2):
+    print("=================================")
+    print(f"旋转角度为{angle}")
     # 计算图像中心点，每次旋转60度
     for angle in range(-180, 180, step):
         print("=================================")
