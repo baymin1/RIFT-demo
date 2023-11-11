@@ -10,11 +10,11 @@ import cv2
 sys.path.append(os.path.join(os.path.dirname(__file__), "."))
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-step = 60
+step = 20
 device = "cuda:0"
 
 
-def rotated_source_calculate(img1, img2, best_cost, best_match_point1, best_match_point2, best_transform):
+def rotated_source_calculate(img1, img2, best_mean_error, best_inliersIndex, best_match_point1, best_match_point2):
     best_img = img2
     # 计算图像中心点，每次旋转angle度
     for angle in range(step, 360, step):
@@ -28,15 +28,15 @@ def rotated_source_calculate(img1, img2, best_cost, best_match_point1, best_matc
         rotated_img2 = cv2.warpAffine(img2, rotation_matrix, (width, height))
 
         # RIFT
-        current_cost, match_point1, match_point2, current_transform = RIFT(img1, rotated_img2)
-        print(f"current_cost为{current_cost}")
+        current_mean_error, inliersIndex, match_point1, match_point2 = RIFT(img1, rotated_img2)
+        print(f"current_cost为{current_mean_error}")
 
         # 判断
-        if current_cost < best_cost:
-            best_cost = current_cost
+        if current_mean_error < best_mean_error:
+            best_mean_error = current_mean_error
+            best_inliersIndex = inliersIndex
             best_match_point1 = match_point1
             best_match_point2 = match_point2
-            best_transform = current_transform
             best_img = rotated_img2
 
-    return best_cost, best_match_point1, best_match_point2, best_transform, best_img
+    return best_inliersIndex,best_match_point1, best_match_point2, best_img

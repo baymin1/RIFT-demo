@@ -60,18 +60,37 @@ def RIFT(img1, img2):
     match_point2, IA = np.unique(match_point2, return_index=True, axis=0)
     match_point1 = match_point1[IA]
 
-    # 从 match_point1 中提取描述符索引
-    des_indices_1 = [np.where((kps1 == point).all(axis=1))[0][0] for point in match_point1]
-    descriptor1 = des1[des_indices_1]
+    #求变换矩阵
+    transform = FSC(match_point1, match_point2, 'affine', 2)
 
-    des_indices_2 = [np.where((kps2 == point).all(axis=1))[0][0] for point in match_point2]
-    descriptor2 = des2[des_indices_2]
-    # 得到两幅图匹配点的描述符并计算均方差误差
-    best_costs = np.mean((descriptor1 - descriptor2) ** 2)
+    # 计算误差
+    Y_ = np.ones([3, len(match_point1)])
+    Y_[:2] = match_point1.T
+    Y_ = transform.dot(Y_)  # 得到图1内点进行变换后的坐标矩阵
 
-    # 计算初始值作为最优
-    best_match_point1 = match_point1
-    best_match_point2 = match_point2
-    best_transform = FSC(match_point1, match_point2, 'affine', 2)
+    Y_[0] = Y_[0] / Y_[2]
+    Y_[1] = Y_[1] / Y_[2]
 
-    return best_costs, best_match_point1, best_match_point2, best_transform
+    threshold = 100
+    error = np.sqrt(sum(np.power((Y_[0:2] - match_point2.T), 2)))  # 每个点对的误差
+    inliersIndex = np.squeeze(np.argwhere(error < threshold))
+
+    # 将所有小于门限值的点对误差做均值。
+    filtered_errors = error[error < threshold]
+    mean_error = np.mean(filtered_errors)
+
+
+    # # 从 match_point1 中提取描述符索引
+    # des_indices_1 = [np.where((kps1 == point).all(axis=1))[0][0] for point in match_point1]
+    # descriptor1 = des1[des_indices_1]
+    #
+    # des_indices_2 = [np.where((kps2 == point).all(axis=1))[0][0] for point in match_point2]
+    # descriptor2 = des2[des_indices_2]
+    # # 得到两幅图匹配点的描述符并计算均方差误差
+    # best_costs = np.mean((descriptor1 - descriptor2) ** 2)
+    #
+    # # 计算初始值作为最优
+    # best_match_point1 = match_point1
+    # best_match_point2 = match_point2
+
+    return mean_error, inliersIndex, match_point1, match_point2
