@@ -42,9 +42,9 @@ def RIFT_descriptor_no_rotation_invariance(img, kps, eo, patch_size, s, o):
         x2 = min(x + math.floor(patch_size / 2), np.size(img, 1))
         y2 = min(y + math.floor(patch_size / 2), np.size(img, 0))
 
-        # if y2 - y1 != patch_size or x2 - x1 != patch_size:
-        #     kps_to_ignore[0][i] = 0
-        #     continue
+        if y2 - y1 != patch_size or x2 - x1 != patch_size:
+            kps_to_ignore[0][i] = 0
+            continue
 
         patch = mim[y1:y2, x1:x2]
         ys, xs = np.size(patch, 0), np.size(patch, 1)
