@@ -89,5 +89,5 @@ img3 = cv2.drawMatches(img1, kp1, rotated_img2, kp2, matches, None, flags=2)
 # cv2.destroyAllWindows()
 
 # 可视化图像进行存储
-store_path = "/CSTemp/hjh/myRIFT-master/image/HE.png"
+store_path = "/CSTemp/hjh/myRIFT-master/image/registration.png"
 cv2.imwrite(store_path, img3)
