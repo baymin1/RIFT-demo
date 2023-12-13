@@ -1,11 +1,11 @@
 import cv2
 import numpy as np
-from FSC import FSC
+from FSC import fsc
 from phasepack import phasecong
-from RIFT_descriptor_no_rotation_invariance import RIFT_descriptor_no_rotation_invariance
+from RIFT_Descriptor_No_Rotation_Invariance import RIFT_descriptor_no_rotation_invariance
 
 
-def RIFT(img1, img2):
+def rift(img1, img2):
     # 计算图像相位一致性：m1：相位一致协方差的最大矩，eo1：一个包含复值卷积结果的列表
     m1, __, __, __, __, eo1, __ = phasecong(img=img1, nscale=4, norient=6, minWaveLength=3, mult=1.6,
                                             sigmaOnf=0.75, g=3, k=1)
@@ -61,7 +61,7 @@ def RIFT(img1, img2):
     match_point1 = match_point1[IA]
 
     #求变换矩阵
-    transform = FSC(match_point1, match_point2, 'affine', 2)
+    transform = fsc(match_point1, match_point2, 'affine', 2)
 
     # 计算误差
     Y_ = np.ones([3, len(match_point1)])
@@ -71,7 +71,7 @@ def RIFT(img1, img2):
     Y_[0] = Y_[0] / Y_[2]
     Y_[1] = Y_[1] / Y_[2]
 
-    threshold = 100
+    threshold = 50
     error = np.sqrt(sum(np.power((Y_[0:2] - match_point2.T), 2)))  # 每个点对的误差
     inliersIndex = np.squeeze(np.argwhere(error < threshold))
 

@@ -23,7 +23,7 @@ import numpy as np
 import math
 
 
-def LSM(match1, match2, change_form):
+def lsm(match1, match2, change_form):
     A = np.zeros([2 * len(match1), 4])
     for i in range(len(match1)):
         A[2 * i:2 * i + 2] = np.tile(match1[i], (2, 2))

@@ -22,10 +22,10 @@ RANSAC主循环:
 """
 
 import numpy as np
-from LSM import LSM
+from LSM import lsm
 
 
-def FSC(cor1, cor2, change_form, error_t):
+def fsc(cor1, cor2, change_form, error_t):
     (M, N) = np.shape(cor1)
     if (change_form == 'similarity'):
         n = 2
@@ -66,7 +66,7 @@ def FSC(cor1, cor2, change_form, error_t):
                 cor22[0] != cor11[1]) and sum(cor22[0] != cor22[2]) and sum(cor22[0] != cor22[3]) and sum(
                 cor22[1] != cor22[2]) and sum(cor22[1] != cor22[3]) and sum(cor22[2] != cor22[3]):
                 break
-        parameters, __ = LSM(cor11, cor22, change_form)
+        parameters, __ = lsm(cor11, cor22, change_form)
         solution = np.array([[parameters[0], parameters[1], parameters[4]],
                              [parameters[2], parameters[3], parameters[5]],
                              [parameters[6], parameters[7], 1]])
@@ -98,7 +98,7 @@ def FSC(cor1, cor2, change_form, error_t):
     cor1_new = cor1_new[IA_new]
     cor2_new = cor2_new[IA_new]
 
-    parameters, rmse = LSM(cor1_new, cor2_new, change_form)
+    parameters, rmse = lsm(cor1_new, cor2_new, change_form)
     solution = np.array([[parameters[0], parameters[1], parameters[4]],
                          [parameters[2], parameters[3], parameters[5]],
                          [parameters[6], parameters[7], 1]])
