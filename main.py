@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 # import openslide
 from RIFT import rift
+from FSC import fsc
 from Rotated_Source_Calculate import rotated_source_calculate
 
 # # 遍历文件夹进行配准
@@ -62,13 +63,11 @@ img2 = cv2.resize(s_img2, (target_width, target_height))
 然后可以在特征检测和非刚性配准过程中应用该掩模，以便将配准焦点集中在组织上。
 """
 
-
-
 # RIFT首次配准，得到初始值作为best，再进行优化
 costs, inliersIndex, match_point1, match_point2 = rift(img1, img2)
 
 # 旋转优化
-inliersIndex, match_point1, match_point2, rotated_img2 = rotated_source_calculate(img1, img2, costs,
+inliersIndex, match_point1, match_point2, img2 = rotated_source_calculate(img1, img2, costs,
                                                                                   inliersIndex, match_point1,
                                                                                   match_point2)
 
@@ -80,10 +79,16 @@ kp1 = [cv2.KeyPoint(float(clean_point1[i][0]), float(clean_point1[i][1]), 1) for
 kp2 = [cv2.KeyPoint(float(clean_point2[i][0]), float(clean_point2[i][1]), 1) for i in range(len(clean_point2))]
 matches = [cv2.DMatch(i, i, 1) for i in range(len(clean_point1))]
 
-# 可视化
-img3 = cv2.drawMatches(img1, kp1, rotated_img2, kp2, matches, None, flags=2)
+# 匹配
+img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches, None, flags=2)
 
-## 服务器上没法显示图片
+# 变换源图像
+h, w = img2.shape[:2]
+transform = fsc(match_point1, match_point2, 'affine', 2)
+rotated_source_img = cv2.warpPerspective(img2, transform, (w, h))
+cv2.imwrite("/CSTemp/hjh/myRIFT-master/image/rotated_source_img.png", rotated_source_img)
+
+## 可视化，服务器上没法显示图片
 # cv2.imshow('img3', img3)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()

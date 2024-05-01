@@ -42,7 +42,7 @@ def fsc(cor1, cor2, change_form, error_t):
 
         iterations = 10000
     else:
-        iterations = max_iteration
+        iterations = int(max_iteration)
 
     most_consensus_number = 0
     cor1_new = np.zeros([M, N])

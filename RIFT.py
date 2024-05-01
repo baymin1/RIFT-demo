@@ -12,19 +12,21 @@ def rift(img1, img2):
     m2, __, __, __, __, eo2, __ = phasecong(img=img2, nscale=4, norient=6, minWaveLength=3, mult=1.6,
                                             sigmaOnf=0.75, g=3, k=1)
 
-    # 根据最大最小值做归一化
+    # 归一化
     m1, m2 = map(lambda img: (img.astype(np.float64) - img.min()) / (img.max() - img.min()), (m1, m2))
     cm1 = m1 * 255
     cm2 = m2 * 255
+
+    # 角点检测
     fast = cv2.FastFeatureDetector_create(nonmaxSuppression=True, type=cv2.FAST_FEATURE_DETECTOR_TYPE_7_12)
-    kp1 = fast.detect(np.uint8(cm1), None)  # keypoint  参数1应该为一个单通道图像，故转为unit8格式
+    kp1 = fast.detect(np.uint8(cm1), None)  # keypoint  fast检测参数1应该为一个单通道图像，故转为unit8格式
     kp2 = fast.detect(np.uint8(cm2), None)
 
-    # 对关键点根据其响应值进行排序
+    # 对关键点根据其响应值由大到小进行排序
     kp1 = sorted(kp1, key=lambda kp: kp.response, reverse=True)
     kp2 = sorted(kp2, key=lambda kp: kp.response, reverse=True)
 
-    # 选择响应值最大的关键点
+    # 选择前5000个关键点
     top_kp1 = kp1[:min(5000, len(kp1))]
     top_kp2 = kp2[:min(5000, len(kp2))]
 
