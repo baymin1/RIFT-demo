@@ -1,0 +1,2 @@
+RIFT:radiation-variation insensitive feature transform，一种多模态图像匹配方法，可以解决旋转问题
+本项目给出了RIFT算法的python实现，添加了手动计算旋转角度的优化办法。
