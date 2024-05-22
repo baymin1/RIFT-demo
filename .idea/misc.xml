@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Remote Python 3.9.18 (sftp://root@172.20.5.56:30482/CSTemp/fishfield/Anaconda3/envs/RIFT/bin/python)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.9.18 (sftp://root@172.20.5.56:30482/CSTemp/fishfield/Anaconda3/envs/RIFT/bin/python)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="tiles" project-jdk-type="Python SDK" />
 </project>

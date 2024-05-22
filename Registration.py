@@ -5,7 +5,7 @@ from phasepack import phasecong
 from RIFT_Descriptor_No_Rotation_Invariance import RIFT_descriptor_no_rotation_invariance
 
 
-def rift(img1, img2):
+def registration(img1, img2):
     # 计算图像相位一致性：m1：相位一致协方差的最大矩，eo1：一个包含复值卷积结果的列表
     m1, __, __, __, __, eo1, __ = phasecong(img=img1, nscale=4, norient=6, minWaveLength=3, mult=1.6,
                                             sigmaOnf=0.75, g=3, k=1)

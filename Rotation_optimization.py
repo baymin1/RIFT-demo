@@ -2,7 +2,7 @@ import sys
 import os
 from phasepack import phasecong
 from FSC import fsc
-from RIFT import rift
+from Registration import registration
 from RIFT_Descriptor_No_Rotation_Invariance import RIFT_descriptor_no_rotation_invariance
 import numpy as np
 import cv2
@@ -28,7 +28,7 @@ def rotated_source_calculate(img1, img2, best_mean_error, best_inliersIndex, bes
         rotated_img2 = cv2.warpAffine(img2, rotation_matrix, (width, height))
 
         # RIFT
-        current_mean_error, inliersIndex, match_point1, match_point2 = rift(img1, rotated_img2)
+        current_mean_error, inliersIndex, match_point1, match_point2 = registration(img1, rotated_img2)
         print(f"current_cost为{current_mean_error}")
 
         # 判断

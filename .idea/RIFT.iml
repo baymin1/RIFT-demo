@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/env" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.9.18 (sftp://root@172.20.5.56:30482/CSTemp/fishfield/Anaconda3/envs/RIFT/bin/python)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="tiles" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
