@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 # import openslide
-from Registration import registration
+from RIFT import rift
 from FSC import fsc
 from Rotation_optimization import rotated_source_calculate
 
@@ -48,7 +48,7 @@ img2 = cv2.resize(s_img2, (target_width, target_height))
 """
 
 # RIFT首次配准，得到初始值作为best，再进行优化
-costs, inliersIndex, match_point1, match_point2 = registration(img1, img2)
+costs, inliersIndex, match_point1, match_point2 = rift(img1, img2)
 
 # 旋转优化
 inliersIndex, match_point1, match_point2, img2 = rotated_source_calculate(img1, img2, costs,
@@ -66,17 +66,17 @@ matches = [cv2.DMatch(i, i, 1) for i in range(len(clean_point1))]
 # 匹配
 img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches, None, flags=2)
 
-# 变换源图像
-h, w = img2.shape[:2]
-transform = fsc(match_point1, match_point2, 'affine', 2)
-rotated_source_img = cv2.warpPerspective(img2, transform, (w, h))
-cv2.imwrite("/CSTemp/hjh/myRIFT-master/image/rotated_source_img.png", rotated_source_img)
+# 可视化
+cv2.imshow('img3', img3)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
-## 可视化，服务器上没法显示图片
-# cv2.imshow('img3', img3)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+# # 变换源图像
+# h, w = img2.shape[:2]
+# transform = fsc(match_point1, match_point2, 'affine', 2)
+# rotated_source_img = cv2.warpPerspective(img2, transform, (w, h))
+# cv2.imwrite("/CSTemp/hjh/myRIFT-master/image/rotated_source_img.png", rotated_source_img)
 
-# 可视化图像进行存储
-store_path = "/CSTemp/hjh/myRIFT-master/image/registration.png"
-cv2.imwrite(store_path, img3)
+# # 可视化图像进行存储
+# store_path = "/CSTemp/hjh/myRIFT-master/image/registration.png"
+# cv2.imwrite(store_path, img3)

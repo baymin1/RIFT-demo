@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f130184d-4600-40d1-9784-96a836cf1525" name="更改" comment="新增了扭曲原图像并保存">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/myRIFT-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RIFT.iml" afterDir="false" />
+    <list default="true" id="f130184d-4600-40d1-9784-96a836cf1525" name="更改" comment="update details">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSC.py" beforeDir="false" afterPath="$PROJECT_DIR$/FSC.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LSM.py" beforeDir="false" afterPath="$PROJECT_DIR$/LSM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RIFT.py" beforeDir="false" afterPath="$PROJECT_DIR$/Registration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rotated_Source_Calculate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rotation_optimization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/RIFT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rotation_optimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rotation_optimization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -252,7 +248,9 @@
       <workItem from="1714568834361" duration="102000" />
       <workItem from="1714623012365" duration="2353000" />
       <workItem from="1716359920877" duration="340000" />
-      <workItem from="1716360306405" duration="706000" />
+      <workItem from="1716360306405" duration="1899000" />
+      <workItem from="1717595073778" duration="27000" />
+      <workItem from="1718885142340" duration="393000" />
     </task>
     <task id="LOCAL-00001" summary="修改了损失函数的计算过程">
       <created>1699617447805</created>
@@ -290,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714568387171</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="update details">
+      <option name="closed" value="true" />
+      <created>1716361114920</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716361114920</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,7 +319,8 @@
     <MESSAGE value="服务器更改" />
     <MESSAGE value="修正" />
     <MESSAGE value="新增了扭曲原图像并保存" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增了扭曲原图像并保存" />
+    <MESSAGE value="update details" />
+    <option name="LAST_COMMIT_MESSAGE" value="update details" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/myRIFT_master$11.coverage" NAME="11 覆盖结果" MODIFIED="1702465055368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
