@@ -1,16 +1,4 @@
-
-"""
-这个函数实现的是RANSAC（Random Sample Consensus）方法的一个变体，用于估计两组点之间的变换（可能是相似性、仿射性或透视变换）。
-RANSAC是一种鲁棒方法，用于从包含大量离群值的数据中估计模型参数。
-
-输入参数:
-    cor1和cor2：两组对应的点的坐标。
-    change_form：定义需要计算的变换类型（'affine'）
-    error_t：RANSAC的阈值，用于判断一个点是否为内点。
-输出:
-    返回计算出的变换矩阵。
-    这个函数的主要目的是在存在大量离群值的情况下，鲁棒地估计两组点之间的变换。。
-"""
+# 这个函数实现的是RANSAC方法的一个变体
 
 import numpy as np
 from LSM import lsm
@@ -30,7 +18,6 @@ def fsc(cor1, cor2, change_form, error_t):
 
     if (max_iteration > 10000):
 
-
         iterations = 10000
     else:
         iterations = int(max_iteration)
@@ -44,19 +31,20 @@ def fsc(cor1, cor2, change_form, error_t):
             a = np.floor(1 + (M - 1) * np.random.rand(1, n)).astype(np.int_)[0]
             cor11 = cor1[a]
             cor22 = cor2[a]
-            if n == 2 and (a[0] != a[1]) and sum(cor11[0] != cor11[1]) and sum(cor22[0] != cor22[1]):
+            if n == 2 and (a[0] != a[1]) and (cor11[0] != cor11[1]) and (cor22[0] != cor22[1]):
                 break
-            if n == 3 and (a[0] != a[1] and a[0] != a[2] and a[1] != a[2]) and sum(cor11[0] != cor11[1]) and sum(
-                    cor11[0] != cor11[2]) and sum(cor11[1] != cor11[2]) and sum(cor22[0] != cor22[1]) and sum(
-                cor22[0] != cor22[2]) and sum(cor22[1] != cor22[2]):
+            if n == 3 and (a[0] != a[1] and a[0] != a[2] and a[1] != a[2]) and (cor11[0] != cor11[1]) and (
+                    cor11[0] != cor11[2]) and (cor11[1] != cor11[2]) and (cor22[0] != cor22[1]) and (
+                    cor22[0] != cor22[2]) and (cor22[1] != cor22[2]):
                 break
             if n == 4 and (
                     a[0] != a[1] and a[0] != a[2] and a[0] != a[3] and a[1] != a[2] and a[1] != a[3] and a[2] != a[
-                3]) and sum(cor11[0] != cor11[1]) and sum(cor11[0] != cor11[2]) and sum(cor11[0] != cor11[3]) and sum(
-                cor11[1] != cor11[2]) and sum(cor11[1] != cor11[3]) and sum(cor11[2] != cor11[3]) and sum(
-                cor22[0] != cor11[1]) and sum(cor22[0] != cor22[2]) and sum(cor22[0] != cor22[3]) and sum(
-                cor22[1] != cor22[2]) and sum(cor22[1] != cor22[3]) and sum(cor22[2] != cor22[3]):
+                3]) and (cor11[0] != cor11[1]) and (cor11[0] != cor11[2]) and (cor11[0] != cor11[3]) and (
+                    cor11[1] != cor11[2]) and (cor11[1] != cor11[3]) and (cor11[2] != cor11[3]) and (
+                    cor22[0] != cor22[1]) and (cor22[0] != cor22[2]) and (cor22[0] != cor22[3]) and (
+                    cor22[1] != cor22[2]) and (cor22[1] != cor22[3]) and (cor22[2] != cor22[3]):
                 break
+
         parameters, __ = lsm(cor11, cor22, change_form)
         solution = np.array([[parameters[0], parameters[1], parameters[4]],
                              [parameters[2], parameters[3], parameters[5]],

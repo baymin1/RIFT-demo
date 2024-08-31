@@ -1,8 +1,6 @@
-"""
-LSM函数是为了使用最小二乘法来计算两组点之间的仿射变换参数。
-match1和match2：两组对应的点的坐标，每组点是一个Nx2的矩阵。
-change_form：指定变换的类型，这里是（'affine'）'仿射'变换。
-"""
+
+# LSM函数是为了使用最小二乘法来计算两组点之间的仿射变换参数。
+
 
 import numpy as np
 import math

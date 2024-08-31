@@ -14,7 +14,7 @@ step = 10
 device = "cuda:0"
 
 
-def rotated_source_calculate(img1, img2, best_mean_error, best_inliersIndex, best_match_point1, best_match_point2):
+def rotation_optimization(img1, img2, best_mean_error, best_inliersIndex, best_match_point1, best_match_point2):
     best_img = img2
     # 计算图像中心点，每次旋转angle度
     for angle in range(step, 360, step):

@@ -83,17 +83,4 @@ def rift(img1, img2):
     mean_error = np.mean(filtered_errors)
 
 
-    # # 从 match_point1 中提取描述符索引
-    # des_indices_1 = [np.where((kps1 == point).all(axis=1))[0][0] for point in match_point1]
-    # descriptor1 = des1[des_indices_1]
-    #
-    # des_indices_2 = [np.where((kps2 == point).all(axis=1))[0][0] for point in match_point2]
-    # descriptor2 = des2[des_indices_2]
-    # # 得到两幅图匹配点的描述符并计算均方差误差
-    # best_costs = np.mean((descriptor1 - descriptor2) ** 2)
-    #
-    # # 计算初始值作为最优
-    # best_match_point1 = match_point1
-    # best_match_point2 = match_point2
-
     return mean_error, inliersIndex, match_point1, match_point2

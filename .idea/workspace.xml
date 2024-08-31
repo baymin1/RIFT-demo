@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f130184d-4600-40d1-9784-96a836cf1525" name="更改" comment="update details">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/RIFT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSC.py" beforeDir="false" afterPath="$PROJECT_DIR$/FSC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LSM.py" beforeDir="false" afterPath="$PROJECT_DIR$/LSM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RIFT.py" beforeDir="false" afterPath="$PROJECT_DIR$/RIFT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RIFT_Descriptor_No_Rotation_Invariance.py" beforeDir="false" afterPath="$PROJECT_DIR$/RIFT_Descriptor_No_Rotation_Invariance.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rotation_optimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rotation_optimization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -250,7 +254,9 @@
       <workItem from="1716359920877" duration="340000" />
       <workItem from="1716360306405" duration="1899000" />
       <workItem from="1717595073778" duration="27000" />
-      <workItem from="1718885142340" duration="393000" />
+      <workItem from="1718885142340" duration="556000" />
+      <workItem from="1724903429570" duration="178000" />
+      <workItem from="1725095279651" duration="1189000" />
     </task>
     <task id="LOCAL-00001" summary="修改了损失函数的计算过程">
       <created>1699617447805</created>
@@ -296,7 +302,23 @@
       <option name="project" value="LOCAL" />
       <updated>1716361114920</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update details">
+      <option name="closed" value="true" />
+      <created>1718885631263</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718885631263</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update details">
+      <option name="closed" value="true" />
+      <created>1724903496568</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1724903496568</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

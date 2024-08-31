@@ -2,27 +2,6 @@ import numpy as np
 import math
 from einops import repeat
 
-"""
-img: 输入图像。
-kps: 关键点坐标。
-eo: 一个由多个尺度和方向组成的滤波器响应列表。
-patch_size: 用于计算描述符的图像块的大小。
-s: 尺度数量。
-o: 方向数量。
-
-构造一个方向显著性图(CS): 这里，对于每个方向和每个尺度，计算图像的方向显著性。
-确定最显著的方向: 使用np.argmax确定每个像素点最显著的方向。
-初始化描述符矩阵: 根据关键点数量和方向数量初始化一个描述符矩阵。
-计算RIFT描述符:
-对于每个关键点，提取一个大小为patch_size的图像块。将该块划分为ns x ns的子块。
-对于每个子块，使用直方图统计每个方向的出现次数，从而获得RIFT描述符。标准化描述符: 对于每个RIFT描述符，进行L2范数标准化。
-
-输出：
-KPS_out: 过滤后的关键点坐标（可能去除了一些无效的关键点）。
-des_out: 对应的RIFT描述符。
-"""
-
-
 def RIFT_descriptor_no_rotation_invariance(img, kps, eo, patch_size, s, o):
     KPS = kps.T
     (yim, xim, _) = np.shape(img)
