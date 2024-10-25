@@ -6,15 +6,14 @@ from RIFT import rift
 from FSC import fsc
 from Rotation_optimization import rotation_optimization
 
-s_img1 = cv2.imread("/CSTemp/hjh/myRIFT-master/image/HE.png")
-s_img2 = cv2.imread("/CSTemp/hjh/myRIFT-master/image/IHC_CD3.png")
+s_img1 = cv2.imread("image/HE.png")
+s_img2 = cv2.imread("image/IHC_CD3.png")
 target_width = 1000
 target_height = 1000
 
 # 下采样
 img1 = cv2.resize(s_img1, (target_width, target_height))
 img2 = cv2.resize(s_img2, (target_width, target_height))
-
 
 # 初始配准
 costs, inliersIndex, match_point1, match_point2 = rift(img1, img2)

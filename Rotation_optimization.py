@@ -15,7 +15,7 @@ device = "cuda:0"
 
 
 def rotation_optimization(img1, img2, best_mean_error, best_inliersIndex, best_match_point1, best_match_point2):
-    best_img = img2
+    best_rot_img = img2
     # 计算图像中心点，每次旋转angle度
     for angle in range(step, 360, step):
         print("=================================")
@@ -37,6 +37,6 @@ def rotation_optimization(img1, img2, best_mean_error, best_inliersIndex, best_m
             best_inliersIndex = inliersIndex
             best_match_point1 = match_point1
             best_match_point2 = match_point2
-            best_img = rotated_img2
+            best_rot_img = rotated_img2
 
-    return best_inliersIndex,best_match_point1, best_match_point2, best_img
+    return best_inliersIndex,best_match_point1, best_match_point2, best_rot_img
